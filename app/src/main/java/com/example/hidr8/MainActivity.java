@@ -12,51 +12,61 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView waterAmount;
-    ProgressBar waterBar;
+    //variable used to hold the text field that displays the water amount
+    TextView waterAmountText;
+    //variable used to connect to the progress bar
+    ProgressBar waterProgressBar;
+    //variable used to connect to the water bottle image that is used as a button
     ImageButton waterBottle;
-    Button weeklyReport;
+    //variable used to connect to the weekly report button
+    Button weeklyReportButton;
+    //variable used to hold the current containerSize
     double containerSize;
-    double total;
+    //variable used to hold the goal amount
+    double goal;
+    //variable used to define the amount that the progress bar should advance based on the container size
     double incrementCount;
+    //variable used to hold the currentAmount of water that has been drank for the day
     double currentAmount = 0;
-    String progressText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        waterAmount = findViewById(R.id.waterAmount);
-        waterBar = findViewById(R.id.progressBar);
+        waterAmountText = findViewById(R.id.waterAmount);
+        waterProgressBar = findViewById(R.id.progressBar);
         waterBottle = findViewById(R.id.WaterBottle);
-        weeklyReport = findViewById(R.id.weeklyReport);
+        weeklyReportButton = findViewById(R.id.weeklyReport);
 
+        //defines default values
         containerSize = 8;
-        total = 80;
-        incrementCount = (containerSize/total) * 100;
+        goal = 80;
+        incrementCount = (containerSize/goal) * 100;
         currentAmount = 0;
 
-        progressText = (currentAmount + " fl oz / " + total + " fl oz");
-        waterAmount.setText(progressText);
+        //sets the text above the waterProgressBar to the currentAmount next to the goal value
+        waterAmountText.setText(currentAmount + " fl oz / " + goal + " fl oz");
 
-        weeklyReport.setOnClickListener(new View.OnClickListener() {
+        //creates a OnClickListener for the weeklyReportButton that starts the WeeklyReport activity
+        //when the button is clicked
+        weeklyReportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, WeeklyReport.class);
-                intent.putExtra("randomVal", 50);
-                startActivityForResult(intent, 1);
-                onActivityResult(1, 2, intent);
+                startActivity(intent);
             }
         });
 
     }
 
+
     public void waterOnClick(View view) {
-        waterBar.incrementProgressBy((int)Math.round(incrementCount));
+        //increments the waterProgressBar by the amount determined by the container size
+        waterProgressBar.incrementProgressBy((int)Math.round(incrementCount));
+        //increases the currentAmount based on the current containerSize
         currentAmount += (int)Math.round(containerSize);
-        progressText = (currentAmount + " / " + total + " oz.");
-        waterAmount.setText(progressText);
+        waterAmountText.setText(currentAmount + " fl oz / " + goal + " fl oz");
     }
 }
 
