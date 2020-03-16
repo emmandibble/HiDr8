@@ -7,12 +7,55 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/waterAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/progressBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/WaterBottle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:background="@null"
+        android:maxWidth="400dp"
+        android:maxHeight="400dp"
+        android:onClick="waterOnClick"
+        android:scaleType="fitXY"
+        android:src="@drawable/water_bottle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:progress="0"
+        android:scaleY="6"
+        app:layout_constraintBottom_toTopOf="@+id/WaterBottle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        />
+
+    <Button
+        android:id="@+id/weeklyReport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/weeklyReport"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/WaterBottle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
