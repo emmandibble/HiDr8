@@ -9,10 +9,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:gravity="center"
-        android:text="This is the weekly report screen"
+        android:text="@string/weekly_completion"
         android:textSize="20dp"
-        android:textStyle = "bold"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
