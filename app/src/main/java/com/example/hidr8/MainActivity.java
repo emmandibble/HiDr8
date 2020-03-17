@@ -71,9 +71,11 @@ public class MainActivity extends AppCompatActivity {
                 switch (position) {
                     case 0:
                         //when first item is selected
+                        startActivity(new Intent(MainActivity.this, Settings.class));
                         break;
                     case 1:
                         //when second item is selected
+                        startActivity(new Intent(MainActivity.this, MoreInformation.class));
                         break;
                 }
 
