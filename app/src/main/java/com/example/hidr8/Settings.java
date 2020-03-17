@@ -2,7 +2,9 @@ package com.example.hidr8;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 public class Settings extends AppCompatActivity {
 
@@ -15,5 +17,9 @@ public class Settings extends AppCompatActivity {
                 .replace(R.id.settings_container, new SettingsFragment())
                 .commit();
 
+    }
+
+    public void saveExitOnClick(View view) {
+        startActivity(new Intent(Settings.this, MainActivity.class));
     }
 }
