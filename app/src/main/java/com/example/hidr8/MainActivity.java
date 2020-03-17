@@ -47,11 +47,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //configureToolbar();
+        
         title = drawerTitle = getTitle();
-        navigationDrawerItemTitles = getResources().getStringArray(R.array.navigation_drawer_items_array);
-        drawerLayout = findViewById(R.id.drawer_layout);
+        navigationDrawerItemTitles = getResources().getStringArray(R.array.navigation_drawer_items_main_array);
+        drawerLayout = findViewById(R.id.drawer_main_layout);
         drawerList = findViewById(R.id.left_drawer);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -83,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        drawerLayout = findViewById(R.id.drawer_layout);
+        drawerLayout = findViewById(R.id.drawer_main_layout);
         drawerLayout.addDrawerListener(drawerToggle);
         drawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.app_name, R.string.app_name);
         //This is necessary to change the icon of the Drawer Toggle upon state change.
@@ -127,12 +126,6 @@ public class MainActivity extends AppCompatActivity {
         waterAmountText.setText(currentAmount + " fl oz / " + goal + " fl oz");
     }
 
-    private void configureToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ActionBar actionbar = getSupportActionBar();
-        //actionbar.setHomeAsUpIndicator(R.drawable.ic_action_menu_white);
-        actionbar.setDisplayHomeAsUpEnabled(true);
-    }
+
 }
 

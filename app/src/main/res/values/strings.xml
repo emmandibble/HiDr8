@@ -13,10 +13,14 @@
     <string name="time">Time</string>
     <string name="amount">Amount</string>
     <string name="go_back_weekly_report">Go Back</string>
-    <string-array name="navigation_drawer_items_array">
+    <string-array name="navigation_drawer_items_main_array">
         <item>Change Daily Goal</item>
         <item>Additional Resources</item>
     </string-array>
     <string name="benefits_of_water">The Benefits of Drinking Water</string>
     <string name="learn_more">Learn More</string>
+    <string-array name="navigation_drawer_items_more_information_array">
+        <item>Change Daily Goal</item>
+        <item>Back to Water Tracker</item>
+    </string-array>
 </resources>
