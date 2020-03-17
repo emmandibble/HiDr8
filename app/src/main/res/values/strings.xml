@@ -17,4 +17,6 @@
         <item>Change Daily Goal</item>
         <item>Additional Resources</item>
     </string-array>
+    <string name="benefits_of_water">The Benefits of Drinking Water</string>
+    <string name="learn_more">Learn More</string>
 </resources>
