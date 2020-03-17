@@ -11,6 +11,10 @@
     <string name="saturday">Sat</string>
     <string name="date">Date</string>
     <string name="time">Time</string>
-    <string name="amount">amount</string>
+    <string name="amount">Amount</string>
     <string name="go_back_weekly_report">Go Back</string>
+    <string-array name="navigation_drawer_items_array">
+        <item>Change Daily Goal</item>
+        <item>Additional Resources</item>
+    </string-array>
 </resources>
