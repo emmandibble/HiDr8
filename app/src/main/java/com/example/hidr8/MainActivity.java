@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
+
         title = drawerTitle = getTitle();
         navigationDrawerItemTitles = getResources().getStringArray(R.array.navigation_drawer_items_main_array);
         drawerLayout = findViewById(R.id.drawer_main_layout);

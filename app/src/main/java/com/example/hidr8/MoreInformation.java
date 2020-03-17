@@ -10,7 +10,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class MoreInformation extends AppCompatActivity {
 
@@ -67,7 +69,12 @@ public class MoreInformation extends AppCompatActivity {
         drawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.app_name, R.string.app_name);
         //This is necessary to change the icon of the Drawer Toggle upon state change.
         drawerToggle.syncState();
-
-
     }
+
+    public void learnMoreOnClick(View view) {
+        Toast.makeText(this, "Directs user to a web-page to learn more about the benefits of drinking water", Toast.LENGTH_LONG).show();
+    }
+
+
+
 }
