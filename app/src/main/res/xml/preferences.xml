@@ -5,17 +5,24 @@
     android:layout_height="match_parent">
 
     <EditTextPreference
-        android:dialogTitle="Enter an amount in fl oz"
+        android:dialogTitle="Enter a daily intake goal"
+        android:defaultValue="80"
         android:key="goal"
-        android:title="Intake Goal" />
+        android:title="Intake Goal"
+        android:dialogLayout="@layout/preference_edit_text"
+        />
     <EditTextPreference
         android:dialogTitle="Enter a wakeup time in military time (0-23)"
         android:key="wake_up_time"
-        android:title="Wake-up Time" />
+        android:title="Wake-up Time"
+        android:dialogLayout="@layout/preference_edit_text"
+        />
     <EditTextPreference
         android:dialogTitle="Enter a bedtime in military time (0-23)"
         android:key="bedtime"
-        android:title="Bedtime" />
+        android:title="Bedtime"
+        android:dialogLayout="@layout/preference_edit_text"
+        />
     <SwitchPreference
         android:key="switch"
         android:title="Reminders"
