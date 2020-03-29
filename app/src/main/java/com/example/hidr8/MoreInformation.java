@@ -30,6 +30,9 @@ public class MoreInformation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_more_information);
 
+        //this flips all of the layout elements and is a quick and dirty solution to open the navigation drawer from right to left
+        getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+
         title = drawerTitle = getTitle();
         navigationDrawerItemTitles = getResources().getStringArray(R.array.navigation_drawer_items_more_information_array);
         drawerLayout = findViewById(R.id.drawer_more_information_layout);
