@@ -19,9 +19,9 @@ public class Settings extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.settings_container, new SettingsFragment())
                 .commit();
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-        String username = pref.getString("username", "n/a");
-        PreferenceManager.getDefaultSharedPreferences(this);
+//        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+//        String username = pref.getString("username", "n/a");
+//        PreferenceManager.getDefaultSharedPreferences(this);
 
 
     }

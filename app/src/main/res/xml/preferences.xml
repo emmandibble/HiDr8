@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <EditTextPreference
-        android:dialogTitle="Enter a daily intake goal"
+        android:dialogTitle="Enter a daily intake goal in fl oz"
         android:defaultValue="80"
         android:key="goal"
         android:title="Intake Goal"

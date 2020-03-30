@@ -5,9 +5,12 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.preference.PreferenceManager;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -28,30 +31,31 @@ public class MainActivity extends AppCompatActivity {
     //variable used to connect to the weekly report button
     Button weeklyReportButton;
     //variable used to hold the current containerSize
-    double containerSize;
+    float containerSize;
     //variable used to hold the goal amount
-    double goal;
+    float goal;
     //variable used to define the amount that the progress bar should advance based on the container size
-    double incrementCount;
+    float incrementCount;
     //variable used to hold the currentAmount of water that has been drank for the day
-    double currentAmount = 0;
+    float currentAmount;
 
     private String[] navigationDrawerItemTitles;
     private DrawerLayout drawerLayout;
     private ListView drawerList;
-    private CharSequence drawerTitle;
-    private CharSequence title;
     ActionBarDrawerToggle drawerToggle;
+
+    SharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        pref = PreferenceManager.getDefaultSharedPreferences(this);
+
         //this flips all of the layout elements and is a quick and dirty solution to open the navigation drawer from right to left
         getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
 
-        title = drawerTitle = getTitle();
         navigationDrawerItemTitles = getResources().getStringArray(R.array.navigation_drawer_items_main_array);
         drawerLayout = findViewById(R.id.drawer_main_layout);
         drawerList = findViewById(R.id.left_drawer);
@@ -100,10 +104,12 @@ public class MainActivity extends AppCompatActivity {
 
 
         //defines default values
-        containerSize = 8;
-        goal = 80;
+        containerSize = pref.getFloat("container_size", 8);
+        goal = Float.parseFloat(pref.getString("goal", "0"));
         incrementCount = (containerSize/goal) * 100;
-        currentAmount = 0;
+        currentAmount = pref.getFloat("current_amount", 0);
+
+        waterProgressBar.setProgress((int)((currentAmount / goal) * 100));
 
         //sets the text above the waterProgressBar to the currentAmount next to the goal value
         waterAmountText.setText(currentAmount + " fl oz / " + goal + " fl oz");
@@ -121,12 +127,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
     public void waterOnClick(View view) {
         //increments the waterProgressBar by the amount determined by the container size
         waterProgressBar.incrementProgressBy((int)Math.round(incrementCount));
         //increases the currentAmount based on the current containerSize
         currentAmount += (int)Math.round(containerSize);
         waterAmountText.setText(currentAmount + " fl oz / " + goal + " fl oz");
+        SharedPreferences.Editor edit = pref.edit();
+        edit.putFloat("current_amount", currentAmount);
+        edit.apply();
     }
 
 
