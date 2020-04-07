@@ -12,6 +12,8 @@ public class Settings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        //starts the SettingsFragment
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.settings_container, new SettingsFragment())
@@ -19,6 +21,7 @@ public class Settings extends AppCompatActivity {
 
     }
 
+    //on click method for the save and exit button
     public void saveExitOnClick(View view) {
         startActivity(new Intent(Settings.this, MainActivity.class));
     }

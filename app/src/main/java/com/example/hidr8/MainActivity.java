@@ -37,9 +37,13 @@ public class MainActivity extends AppCompatActivity {
     //variable used to hold the currentAmount of water that has been drank for the day
     float currentAmount;
 
+    //string array that contains the titles of buttons in the navigation drawer
     private String[] navigationDrawerItemTitles;
+    //variable that connects to the DrawerLayout in the xml file
     private DrawerLayout drawerLayout;
+    //ListView that is contained inside of the navigation drawer
     private ListView drawerList;
+    //variable that holds the hamburger button ActionBarDrawerToggle
     ActionBarDrawerToggle drawerToggle;
 
     SharedPreferences pref;
@@ -49,26 +53,28 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //stores the default shared preferences into pref
         pref = PreferenceManager.getDefaultSharedPreferences(this);
 
         //this flips all of the layout elements and is a quick and dirty solution to open the navigation drawer from right to left
         getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
 
         navigationDrawerItemTitles = getResources().getStringArray(R.array.navigation_drawer_items_main_array);
+
         drawerLayout = findViewById(R.id.drawer_main_layout);
         drawerList = findViewById(R.id.left_drawer);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        getSupportActionBar().setHomeButtonEnabled(true);
+        setSupportActionBar(toolbar);
+        //removes the title of the app from the toolbar
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        //array adapter created for the titles in the navigation drawer
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, navigationDrawerItemTitles);
         drawerList.setAdapter(adapter);
 
+        //listener that switches activities when the user presses a button in the navigation drawer
         drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -87,8 +93,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //set drawerLayout to the DrawerLayout that is the top level layout in activity_main.xml
         drawerLayout = findViewById(R.id.drawer_main_layout);
+        //add a drawer listener that allows the navigation drawer to open when the hamburger button is pressed
         drawerLayout.addDrawerListener(drawerToggle);
+        //create a new ActionBarDrawerToggle that is the hamburger button that will be pressed
         drawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.app_name, R.string.app_name);
         //This is necessary to change the icon of the Drawer Toggle upon state change.
         drawerToggle.syncState();
@@ -101,9 +110,9 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        //defines default values
+        //defines values based on the default shared preferences
         containerSize = pref.getFloat("container_size", 8);
-        goal = Float.parseFloat(pref.getString("goal", "0"));
+        goal = Float.parseFloat(pref.getString("goal", "80"));
         incrementCount = (containerSize/goal) * 100;
         currentAmount = pref.getFloat("current_amount", 0);
 
@@ -128,9 +137,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void waterOnClick(View view) {
         //increments the waterProgressBar by the amount determined by the container size
-        waterProgressBar.incrementProgressBy((int)Math.round(incrementCount));
+        waterProgressBar.incrementProgressBy(Math.round(incrementCount));
         //increases the currentAmount based on the current containerSize
-        currentAmount += (int)Math.round(containerSize);
+        currentAmount += Math.round(containerSize);
         waterAmountText.setText(currentAmount + " fl oz / " + goal + " fl oz");
         SharedPreferences.Editor edit = pref.edit();
         edit.putFloat("current_amount", currentAmount);

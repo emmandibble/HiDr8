@@ -14,6 +14,7 @@ public class WeeklyReport extends AppCompatActivity {
         setContentView(R.layout.activity_weekly_report);
     }
 
+    //on click method for the go back button
     public void goBackOnClick(View view) {
         Intent intent = new Intent(WeeklyReport.this, MainActivity.class);
         startActivity(intent);
