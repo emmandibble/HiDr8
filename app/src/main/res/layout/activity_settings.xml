@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".WeeklyReport">
 
+
     <fragment
         android:id="@+id/settings_container"
         android:name="com.example.hidr8.SettingsFragment"
