@@ -25,4 +25,10 @@
     </string-array>
     <string name="settings_fragment">Settings Fragment</string>
     <string name="save_and_exit">Save and Exit</string>
+    <string name="additionalInfo1">1. Your joints are made of cartilage, which is 80% water. Long term dehydration can lead to joint pain, as they reduce the joint\'s ability to absorb shock.</string>
+    <string name="additionalInfo2">2. Water forms saliva and other bodily lubricants that keep your eyes, nose, and mouth from feeling dry. If you\'re struggling with dry lips, try drinking more water!</string>
+    <string name="additionalInfo3">3. Your blood is more than 90% water, and your blood carries oxygen to the different parts of your body to keep you alive. Lack of water can make blood thicker, leading to higher blood pressure.</string>
+    <string name="additionalInfo4">4. Your skin relies a lot on water to remain youthful. Dehydration can lead to skin disorders and premature wrinkles.</string>
+    <string name="additionalInfo5">5. Water can regulate your body temperature, especially when you\'re hot. If you struggle with feeling like you can\'t cool down after being outside, drink more water!</string>
+    <string name="additionalInfo6">6. Most nutrients you are consuming need to be dissolved by water in order to be accessible and helpful!</string>
 </resources>
