@@ -53,6 +53,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        DatabaseHelper db = new DatabaseHelper(this);
+        db.getWritableDatabase();
+
+
         //stores the default shared preferences into pref
         pref = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -69,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         //removes the title of the app from the toolbar
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+
 
         //array adapter created for the titles in the navigation drawer
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, navigationDrawerItemTitles);

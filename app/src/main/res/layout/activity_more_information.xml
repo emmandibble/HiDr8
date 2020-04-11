@@ -58,6 +58,8 @@ using the DrawerLayout as the top level layout is necessary to use a navigation 
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
+
         <TextView
             android:id="@+id/additionalInfo1"
             android:layout_width="338dp"
