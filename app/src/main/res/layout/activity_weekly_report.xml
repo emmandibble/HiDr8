@@ -188,11 +188,38 @@
         android:id="@+id/amount_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="70dp"
         android:layout_marginTop="32dp"
         android:text="@string/amount"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/time_text"
         app:layout_constraintTop_toBottomOf="@+id/thursday_text" />
+
+    <ListView
+        android:id="@+id/date_data"
+        android:layout_width="wrap_content"
+        android:layout_height="350dp"
+        android:divider="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/date_text" />
+
+    <ListView
+        android:id="@+id/time_data"
+        android:layout_width="wrap_content"
+        android:layout_height="350dp"
+        android:layout_marginStart="108dp"
+        android:divider="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/time_text" />
+
+    <ListView
+        android:id="@+id/amount_data"
+        android:layout_width="wrap_content"
+        android:layout_height="350dp"
+        android:layout_marginStart="104dp"
+        android:divider="@null"
+        app:layout_constraintStart_toStartOf="@+id/time_data"
+        app:layout_constraintTop_toBottomOf="@+id/amount_text" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

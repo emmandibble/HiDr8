@@ -57,15 +57,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-
-
-
-
-
-
-
-
-
         //stores the default shared preferences into pref
         pref = PreferenceManager.getDefaultSharedPreferences(this);
 

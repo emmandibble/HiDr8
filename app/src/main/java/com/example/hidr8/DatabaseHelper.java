@@ -2,6 +2,7 @@ package com.example.hidr8;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -9,6 +10,7 @@ import androidx.annotation.Nullable;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -42,6 +44,54 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("time", time.toString());
         values.put("amount", amount);
         db.insert(TABLE_DAILY_INPUT, null, values);
+    }
+
+    public ArrayList<String> getDate() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT date FROM daily_input ORDER BY date DESC", null);
+        ArrayList<String> array = new ArrayList<>(7);
+
+        if(cursor != null) {
+            if(cursor.moveToFirst()) {
+                do {
+                    array.add(cursor.getString(cursor.getColumnIndex("date")));
+                } while(cursor.moveToNext());
+            }
+        }
+
+        return array;
+    }
+
+    public ArrayList<String> getTime() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT time FROM daily_input ORDER BY date DESC", null);
+        ArrayList<String> array = new ArrayList<>(7);
+
+        if(cursor != null) {
+            if(cursor.moveToFirst()) {
+                do {
+                    array.add(cursor.getString(cursor.getColumnIndex("time")));
+                } while(cursor.moveToNext());
+            }
+        }
+
+        return array;
+    }
+
+    public ArrayList<String> getAmount() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT amount FROM daily_input ORDER BY date DESC", null);
+        ArrayList<String> array = new ArrayList<>(7);
+
+        if(cursor != null) {
+            if(cursor.moveToFirst()) {
+                do {
+                    array.add(cursor.getString(cursor.getColumnIndex("amount")));
+                } while(cursor.moveToNext());
+            }
+        }
+
+        return array;
     }
 
 
