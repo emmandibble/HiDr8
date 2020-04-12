@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -13,7 +12,7 @@ import java.sql.Time;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME = "water_database";
+    private static final String DATABASE_NAME = "water_database";
     private static final int DATABASE_VERSION = 1;
     private static final String TABLE_GOAL_PROGRESS = "goal_progress";
     private static final String TABLE_DAILY_INPUT = "daily_input";
@@ -22,25 +21,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        Log.e("Error", "In onCreate()");
         db.execSQL("CREATE TABLE " + TABLE_GOAL_PROGRESS + "(" + " date DATE PRIMARY KEY," + " goal FLOAT," + " progress FLOAT)");
         db.execSQL("CREATE TABLE " + TABLE_DAILY_INPUT + "(" + " date DATE," + " time Time," + " amount FLOAT," + " PRIMARY KEY(date, time)," + " FOREIGN KEY(date) REFERENCES TABLE_GOAL_PROGRESS(date))");
-
-        //used to test that the table is created properly
-        ContentValues values = new ContentValues();
-        java.util.Date utilDate = new java.util.Date();
-        Date date = new Date(utilDate.getTime());
-        values.put("date", date.toString());
-        values.put("goal", 5.0);
-        values.put("progress", 2.5);
-
-        db.insert(TABLE_GOAL_PROGRESS, null, values);
-
-        Time time = new Time(utilDate.getTime());
-
-
     }
 
+    /*method that inserts data into both tables when the user adds water to the goal
+     *the values in the goal_progress table are overwritten if the user has already tracked water
+     *for that day and new values are inserted into daily_input
+     */
+    public void insertData(Time time, Date date, float goal, float progress, float amount) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("date", date.toString());
+        values.put("goal", goal);
+        values.put("progress", progress);
+        db.insertWithOnConflict(TABLE_GOAL_PROGRESS, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+
+        values.clear();
+        values.put("date", date.toString());
+        values.put("time", time.toString());
+        values.put("amount", amount);
+        db.insert(TABLE_DAILY_INPUT, null, values);
+    }
 
 
     public DatabaseHelper(@Nullable Context context) {

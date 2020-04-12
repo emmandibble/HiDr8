@@ -18,6 +18,9 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.sql.Date;
+import java.sql.Time;
+
 public class MainActivity extends AppCompatActivity {
 
     //variable used to hold the text field that displays the water amount
@@ -54,8 +57,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        DatabaseHelper db = new DatabaseHelper(this);
-        db.getWritableDatabase();
+
+
+
+
+
+
+
 
 
         //stores the default shared preferences into pref
@@ -151,6 +159,12 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor edit = pref.edit();
         edit.putFloat("current_amount", currentAmount);
         edit.apply();
+
+        java.util.Date utilDate = new java.util.Date();
+        Date date = new Date(utilDate.getTime());
+        Time time = new Time(utilDate.getTime());
+        DatabaseHelper db = new DatabaseHelper(this);
+        db.insertData(time, date, goal, currentAmount, containerSize);
     }
 
 
