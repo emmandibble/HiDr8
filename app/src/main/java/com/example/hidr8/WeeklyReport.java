@@ -1,8 +1,12 @@
 package com.example.hidr8;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.View;
@@ -19,6 +23,7 @@ public class WeeklyReport extends AppCompatActivity {
         ListView dateList = findViewById(R.id.date_data);
         ListView timeList = findViewById(R.id.time_data);
         ListView amountList = findViewById(R.id.amount_data);
+
 
         String arr[] = {"5", "2", "3", "4", "5", "1", "2"};
 
