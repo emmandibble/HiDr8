@@ -36,8 +36,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.sql.Date;
 import java.sql.Time;
+import java.util.Date;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -82,6 +82,17 @@ public class MainActivity extends AppCompatActivity{
 
         //stores the default shared preferences into pref
         pref = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor edit = pref.edit();
+
+        Date date = new Date();
+        if(pref.getString("date", "empty").equals("empty")) {
+            edit.putString("date", date.toString());
+        }
+
+        if(pref.getString("date", "empty").compareTo(date.toString()) < 0) {
+            edit.putString("date", date.toString());
+            edit.putFloat("current_amount", 0);
+        }
 
         //this flips all of the layout elements and is a quick and dirty solution to open the navigation drawer from right to left
         getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
@@ -107,6 +118,8 @@ public class MainActivity extends AppCompatActivity{
         recommendedGoal = findViewById(R.id.recommended_goal);
         String weight = pref.getString("weight", "140");
         new GetWebServiceData().execute(weight);
+
+        //calls addNotification() method to create a new notification
         addNotification();
 
 
@@ -186,7 +199,7 @@ public class MainActivity extends AppCompatActivity{
         edit.apply();
 
         java.util.Date utilDate = new java.util.Date();
-        Date date = new Date(utilDate.getTime());
+        java.sql.Date date = new java.sql.Date(utilDate.getTime());
         Time time = new Time(utilDate.getTime());
         DatabaseHelper db = new DatabaseHelper(this);
         db.insertData(time, date, goal, currentAmount, containerSize);
