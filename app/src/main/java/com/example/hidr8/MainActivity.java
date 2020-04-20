@@ -101,7 +101,8 @@ public class MainActivity extends AppCompatActivity{
         DrawableCompat.setTint(wrappedDrawable, Color.RED);
 
         recommendedGoal = findViewById(R.id.recommended_goal);
-        new GetWebServiceData().execute();
+        String weight = pref.getString("weight", "140");
+        new GetWebServiceData().execute(weight);
 
 
 
@@ -199,8 +200,7 @@ public class MainActivity extends AppCompatActivity{
             String returnedGoal = "";
 
             try {
-                int testWeight = 50;
-                url = new URL("http://70.32.24.170:8080/goal?weight=" + testWeight);
+                url = new URL("http://70.32.24.170:8080/goal?weight=" + objects[0]);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
                 conn.setReadTimeout(5000);
