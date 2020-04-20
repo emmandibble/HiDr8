@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -36,7 +37,7 @@ import java.sql.Time;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
     //variable used to hold the text field that displays the water amount
     TextView waterAmountText;
@@ -65,6 +66,9 @@ public class MainActivity extends AppCompatActivity {
     ActionBarDrawerToggle drawerToggle;
 
     SharedPreferences pref;
+
+    TextView recommendedGoal;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +99,9 @@ public class MainActivity extends AppCompatActivity {
         Drawable unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.circle);
         Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
         DrawableCompat.setTint(wrappedDrawable, Color.RED);
+
+        recommendedGoal = findViewById(R.id.recommended_goal);
+        new GetWebServiceData().execute();
 
 
 
@@ -181,5 +188,64 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public class GetWebServiceData extends AsyncTask {
+
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            StringBuffer response;
+            URL url;
+            String responseText;
+            String returnedGoal = "";
+
+            try {
+                int testWeight = 50;
+                url = new URL("http://70.32.24.170:8080/goal?weight=" + testWeight);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+                conn.setReadTimeout(5000);
+                conn.setConnectTimeout(5000);
+                conn.setRequestMethod("GET");
+
+                int responseCode = conn.getResponseCode();
+
+                Log.e("WebService", "Response code: " + responseCode);
+                response = new StringBuffer();
+                if (responseCode == HttpsURLConnection.HTTP_OK) {
+                    BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    String output;
+                    response = new StringBuffer();
+
+                    while ((output = in.readLine()) != null) {
+                        response.append(output);
+                    }
+                    in.close();
+                }
+
+
+                responseText = response.toString();
+                Log.i("WebService", responseText);
+
+                returnedGoal = "";
+
+
+                JSONObject jsonResponse = new JSONObject(responseText);
+                if (jsonResponse.has("goal")) {
+                    returnedGoal = jsonResponse.getString("goal");
+                }
+                Log.e("Test goal", "The returned goal is: " + returnedGoal);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return returnedGoal;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+            recommendedGoal.setText("Recommended goal: " + (String)o + " fl oz");
+        }
+    }
 }
 

@@ -27,12 +27,10 @@ using the DrawerLayout as the top level layout is necessary to use a navigation 
             android:id="@+id/waterAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
             android:text="Hello World!"
             app:layout_constraintBottom_toTopOf="@+id/progressBar"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <!--
         ImageButton that displays the water bottle image and allows it to be used as a button
@@ -41,6 +39,7 @@ using the DrawerLayout as the top level layout is necessary to use a navigation 
             android:id="@+id/WaterBottle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
             android:adjustViewBounds="true"
             android:background="@null"
             android:maxWidth="400dp"
@@ -94,6 +93,17 @@ using the DrawerLayout as the top level layout is necessary to use a navigation 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:theme="@style/AppTheme"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/recommended_goal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
