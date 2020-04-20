@@ -18,7 +18,6 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -31,10 +30,8 @@ import android.widget.TextView;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Time;
 import java.util.Date;
@@ -111,7 +108,7 @@ public class MainActivity extends AppCompatActivity{
 
         //this code can be used to change the color of a drawable for the update to the circles that represent
         //the days of the week a separate drawable will need to be updated for each day of the week
-        Drawable unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.circle);
+        Drawable unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.monday);
         Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
         DrawableCompat.setTint(wrappedDrawable, Color.RED);
 
@@ -179,6 +176,9 @@ public class MainActivity extends AppCompatActivity{
         weeklyReportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //codes to update the circles to the right colors based on the database goes here
+                DatabaseHelper db = new DatabaseHelper(MainActivity.this);
+
                 Intent intent = new Intent(MainActivity.this, WeeklyReport.class);
                 startActivity(intent);
             }

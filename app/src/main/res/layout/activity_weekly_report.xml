@@ -27,7 +27,7 @@
         android:foregroundTint="#00E20000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/weekly_completion"
-        app:srcCompat="@drawable/circle" />
+        app:srcCompat="@drawable/sunday" />
 
     <ImageView
         android:id="@+id/saturday_circle"
@@ -37,7 +37,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@+id/friday_circle"
         app:layout_constraintTop_toBottomOf="@+id/weekly_completion"
-        app:srcCompat="@drawable/circle" />
+        app:srcCompat="@drawable/saturday" />
 
     <ImageView
         android:id="@+id/friday_circle"
@@ -47,7 +47,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@+id/thursday_circle"
         app:layout_constraintTop_toBottomOf="@+id/weekly_completion"
-        app:srcCompat="@drawable/circle" />
+        app:srcCompat="@drawable/friday" />
 
     <ImageView
         android:id="@+id/thursday_circle"
@@ -57,7 +57,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@+id/wednesday_circle"
         app:layout_constraintTop_toBottomOf="@+id/weekly_completion"
-        app:srcCompat="@drawable/circle" />
+        app:srcCompat="@drawable/thursday" />
 
     <ImageView
         android:id="@+id/wednesday_circle"
@@ -67,7 +67,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@+id/tuesday_circle"
         app:layout_constraintTop_toBottomOf="@+id/weekly_completion"
-        app:srcCompat="@drawable/circle" />
+        app:srcCompat="@drawable/wednesday" />
 
     <ImageView
         android:id="@+id/tuesday_circle"
@@ -77,7 +77,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@+id/monday_circle"
         app:layout_constraintTop_toBottomOf="@+id/weekly_completion"
-        app:srcCompat="@drawable/circle" />
+        app:srcCompat="@drawable/tuesday" />
 
     <ImageView
         android:id="@+id/monday_circle"
@@ -87,7 +87,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@+id/sunday_circle"
         app:layout_constraintTop_toBottomOf="@+id/weekly_completion"
-        app:srcCompat="@drawable/circle" />
+        app:srcCompat="@drawable/monday" />
 
     <TextView
         android:id="@+id/sunday_text"
