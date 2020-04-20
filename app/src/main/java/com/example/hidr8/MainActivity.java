@@ -208,8 +208,6 @@ public class MainActivity extends AppCompatActivity{
                 conn.setRequestMethod("GET");
 
                 int responseCode = conn.getResponseCode();
-
-                Log.e("WebService", "Response code: " + responseCode);
                 response = new StringBuffer();
                 if (responseCode == HttpsURLConnection.HTTP_OK) {
                     BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -224,16 +222,12 @@ public class MainActivity extends AppCompatActivity{
 
 
                 responseText = response.toString();
-                Log.i("WebService", responseText);
-
-                returnedGoal = "";
 
 
                 JSONObject jsonResponse = new JSONObject(responseText);
                 if (jsonResponse.has("goal")) {
                     returnedGoal = jsonResponse.getString("goal");
                 }
-                Log.e("Test goal", "The returned goal is: " + returnedGoal);
             } catch (Exception e) {
                 e.printStackTrace();
             }
