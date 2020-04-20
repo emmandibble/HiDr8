@@ -4,10 +4,14 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.preference.PreferenceManager;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -103,7 +107,7 @@ public class MainActivity extends AppCompatActivity{
         recommendedGoal = findViewById(R.id.recommended_goal);
         String weight = pref.getString("weight", "140");
         new GetWebServiceData().execute(weight);
-
+        addNotification();
 
 
 
@@ -241,5 +245,23 @@ public class MainActivity extends AppCompatActivity{
             recommendedGoal.setText("Recommended goal: " + (String)o + " fl oz");
         }
     }
+
+    private void addNotification() {
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(this, "Drink Water")
+                        .setSmallIcon(R.drawable.water_bottle)
+                        .setContentTitle("Drink Water!")
+                        .setContentText("Click to input water");
+
+        Intent notificationIntent = new Intent(this, MainActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(contentIntent);
+
+        // Add as notification
+        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify(0, builder.build());
+    }
+
 }
 
