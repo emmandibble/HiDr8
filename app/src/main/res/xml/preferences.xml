@@ -23,6 +23,19 @@
         android:title="Bedtime"
         android:dialogLayout="@layout/preference_edit_text"
         />
+    <EditTextPreference
+        android:dialogTitle="Enter your height"
+        android:key="height"
+        android:title="Height"
+        android:dialogLayout="@layout/preference_edit_text"
+        />
+    <EditTextPreference
+        android:dialogTitle="Enter your weight"
+        android:key="weight"
+        android:title="Weight"
+        android:dialogLayout="@layout/preference_edit_text"
+        />
+
     <SwitchPreference
         android:key="switch"
         android:title="Reminders"
