@@ -4,12 +4,10 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.NotificationCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.preference.PreferenceManager;
 
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -27,6 +25,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.app.AlarmManager;
 
 import org.json.JSONObject;
 
@@ -36,6 +35,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.Time;
 import java.util.Date;
+import java.util.Calendar;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -57,6 +57,9 @@ public class MainActivity extends AppCompatActivity{
     float incrementCount;
     //variable used to hold the currentAmount of water that has been drank for the day
     float currentAmount;
+
+    private AlarmManager alarmMgr;
+    private PendingIntent alarmIntent;
 
     //string array that contains the titles of buttons in the navigation drawer
     private String[] navigationDrawerItemTitles;
@@ -204,7 +207,6 @@ public class MainActivity extends AppCompatActivity{
 
     public class GetWebServiceData extends AsyncTask {
 
-
         @Override
         protected Object doInBackground(Object[] objects) {
             StringBuffer response;
@@ -256,20 +258,17 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void addNotification() {
-        NotificationCompat.Builder builder =
-                new NotificationCompat.Builder(this, "Drink Water")
-                        .setSmallIcon(R.drawable.water_bottle)
-                        .setContentTitle("Drink Water!")
-                        .setContentText("Click to input water");
 
-        Intent notificationIntent = new Intent(this, MainActivity.class);
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-        builder.setContentIntent(contentIntent);
+        alarmMgr = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, Notify.class);
+        alarmIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
 
-        // Add as notification
-        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.notify(0, builder.build());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 8);
+        calendar.set(Calendar.MINUTE, 00);
+
+        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000*60*30, alarmIntent);
     }
 
     private void setDayOfWeekColors(int[] days) {
