@@ -16,7 +16,6 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -58,6 +57,7 @@ public class MainActivity extends AppCompatActivity{
     //variable used to hold the currentAmount of water that has been drank for the day
     float currentAmount;
 
+    //For recurring notifications
     private AlarmManager alarmMgr;
     private PendingIntent alarmIntent;
 
@@ -79,7 +79,6 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         //stores the default shared preferences into pref
         pref = PreferenceManager.getDefaultSharedPreferences(this);
@@ -109,14 +108,12 @@ public class MainActivity extends AppCompatActivity{
         //removes the title of the app from the toolbar
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-
         recommendedGoal = findViewById(R.id.recommended_goal);
         String weight = pref.getString("weight", "140");
         new GetWebServiceData().execute(weight);
 
         //calls addNotification() method to create a new notification
         addNotification();
-
 
         //array adapter created for the titles in the navigation drawer
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, navigationDrawerItemTitles);
@@ -152,7 +149,6 @@ public class MainActivity extends AppCompatActivity{
         waterProgressBar = findViewById(R.id.progressBar);
         waterBottle = findViewById(R.id.WaterBottle);
         weeklyReportButton = findViewById(R.id.weeklyReport);
-
 
         //defines values based on the default shared preferences
         containerSize = pref.getFloat("container_size", 8);
@@ -229,9 +225,7 @@ public class MainActivity extends AppCompatActivity{
                     in.close();
                 }
 
-
                 responseText = response.toString();
-
 
                 JSONObject jsonResponse = new JSONObject(responseText);
                 if (jsonResponse.has("goal")) {
@@ -247,7 +241,6 @@ public class MainActivity extends AppCompatActivity{
         @Override
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
-            System.out.println((String)o);
             recommendedGoal.setText("Recommended goal: " + (String)o + " fl oz");
         }
     }
@@ -257,11 +250,14 @@ public class MainActivity extends AppCompatActivity{
         Intent intent = new Intent(this, Notify.class);
         alarmIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
 
+        //Reads in the current date and time of the system
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
+        //sets the time of notification to start at 8am
         calendar.set(Calendar.HOUR_OF_DAY, 8);
         calendar.set(Calendar.MINUTE, 00);
 
+        //starts a repeating notification for every 30 minutes
         alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000*60*30, alarmIntent);
     }
 

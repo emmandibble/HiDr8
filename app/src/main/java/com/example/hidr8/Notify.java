@@ -11,6 +11,7 @@ public class Notify extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent)
     {
+        //building what the notification will look like
         Notification builder = new Notification.Builder(context)
                 .setSmallIcon(R.drawable.water_bottle)
                 .setContentTitle("Drink Water!")
