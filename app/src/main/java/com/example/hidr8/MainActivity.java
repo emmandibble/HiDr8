@@ -112,8 +112,10 @@ public class MainActivity extends AppCompatActivity{
         String weight = pref.getString("weight", "140");
         new GetWebServiceData().execute(weight);
 
-        //calls addNotification() method to create a new notification
-        addNotification();
+        //calls addNotification() method to create a new notification if the user has reminders on
+        if(pref.getBoolean("switch", false)) {
+            addNotification();
+        }
 
         //array adapter created for the titles in the navigation drawer
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, navigationDrawerItemTitles);
