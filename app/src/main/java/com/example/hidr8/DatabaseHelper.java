@@ -5,18 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.core.graphics.drawable.DrawableCompat;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -54,6 +47,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(TABLE_DAILY_INPUT, null, values);
     }
 
+    //method that returns an array list of all dates that have been recorded in the daily_input table
+    //used to populate the date list view on the weekly report screen
     public ArrayList<String> getDate() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT date FROM daily_input ORDER BY date DESC", null);
@@ -70,6 +65,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return array;
     }
 
+    //method that returns an array list of all times that have been recorded in the daily_input table
+    //used to populate the time list view on the weekly report screen
     public ArrayList<String> getTime() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT time FROM daily_input ORDER BY date DESC", null);
@@ -86,6 +83,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return array;
     }
 
+    //method that returns an array list of all amounts that have been recorded in the daily_input table
+    //used to populate the amount list view on the weekly report screen
     public ArrayList<String> getAmount() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT amount FROM daily_input ORDER BY date DESC", null);
@@ -102,19 +101,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return array;
     }
 
+    //method that returns an array that contains values representing during which day of the week the water goal was met
     public int[] getCompleteDays() {
 
+        //create a new date and decrement the value by 7 to get a date below valid dates
         Date date = new Date(new java.util.Date().getTime());
         Calendar c = Calendar.getInstance();
         c.setTime(date);
         c.add(Calendar.DATE, -7);
         Date startDate = new Date(c.getTimeInMillis());
+
         SQLiteDatabase db = this.getReadableDatabase();
+        //contains all records in goal_progress ordered by date in descending order
         Cursor cursor = db.rawQuery("Select * FROM goal_progress ORDER BY date DESC LIMIT 7", null);
 
+        //creates a daysOfWeek array to hold -1 when the day is not complete and the value for the day of the week otherwise
         int[] daysOfWeek = {-1,-1,-1,-1,-1,-1,-1};
+        //array counter that is incremented when a complete day is added to the array
         int arrayCounter = 0;
 
+        //iterates over the database query and updates the daysOfWeek array
         if(cursor != null) {
             if(cursor.moveToFirst()) {
                 do{

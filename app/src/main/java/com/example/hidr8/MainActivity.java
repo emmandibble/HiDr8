@@ -195,8 +195,11 @@ public class MainActivity extends AppCompatActivity{
     }
 
 
+    //class used to get data from the custom web service and set the value of a text view
     public class GetWebServiceData extends AsyncTask {
 
+        //method that will run in a separate worker thread to access the web service the weight
+        //value will be passed into this method as a string to change the json that is returned
         @Override
         protected Object doInBackground(Object[] objects) {
             StringBuffer response;
@@ -205,19 +208,21 @@ public class MainActivity extends AppCompatActivity{
             String returnedGoal = "";
 
             try {
+                //connects to the web service directly
                 url = new URL("http://70.32.24.170:8080/goal?weight=" + objects[0]);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
+                //set connection properties
                 conn.setReadTimeout(5000);
                 conn.setConnectTimeout(5000);
                 conn.setRequestMethod("GET");
 
+                //get the response from the web service
                 int responseCode = conn.getResponseCode();
                 response = new StringBuffer();
                 if (responseCode == HttpsURLConnection.HTTP_OK) {
                     BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                     String output;
-                    response = new StringBuffer();
 
                     while ((output = in.readLine()) != null) {
                         response.append(output);
@@ -225,9 +230,11 @@ public class MainActivity extends AppCompatActivity{
                     in.close();
                 }
 
+                //store the response as a string and create a JSONObject to parse the JSON
                 responseText = response.toString();
-
                 JSONObject jsonResponse = new JSONObject(responseText);
+
+                //if the json has a goal field set the value of returned goal to that value
                 if (jsonResponse.has("goal")) {
                     returnedGoal = jsonResponse.getString("goal");
                 }
@@ -235,9 +242,12 @@ public class MainActivity extends AppCompatActivity{
                 e.printStackTrace();
             }
 
+            //return the goal retrieved from the webservice
             return returnedGoal;
         }
 
+        //method that uses the goal returned from doInBackground() and set the text of
+        //the recommendedGoal text view
         @Override
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
@@ -261,11 +271,17 @@ public class MainActivity extends AppCompatActivity{
         alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000*60*30, alarmIntent);
     }
 
+    //method that sets the day of the week circles based on which day of the week the water goal was met
     private void setDayOfWeekColors(int[] days) {
+        //loop that iterates over the passed in days array and sets the color based on the value in
+        //the array at each position in the array
         for(int i = 0; i < days.length; i++) {
+            //only check the cases if the days[i] does not contain the flag value of -1
             if(days[i] != -1) {
+                //the value that is in days[i] determines which drawable is set to the color blue
                 switch(days[i]) {
                     case 1:
+                        //gets the drawable and sets the color to blue
                         Drawable unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.sunday);
                         Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
                         DrawableCompat.setTint(wrappedDrawable, Color.BLUE);
