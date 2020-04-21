@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -77,7 +78,7 @@ public class MoreInformation extends AppCompatActivity {
 
     //OnClick method for the learn more button
     public void learnMoreOnClick(View view) {
-        Toast.makeText(this, "Directs user to a web-page to learn more about the benefits of drinking water", Toast.LENGTH_LONG).show();
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cdc.gov/healthywater/drinking/nutrition/index.html")));
     }
 
 
