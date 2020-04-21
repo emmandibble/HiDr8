@@ -5,12 +5,20 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -92,6 +100,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         return array;
+    }
+
+    public int[] getCompleteDays() {
+
+        Date date = new Date(new java.util.Date().getTime());
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.add(Calendar.DATE, -7);
+        Date startDate = new Date(c.getTimeInMillis());
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("Select * FROM goal_progress ORDER BY date DESC LIMIT 7", null);
+
+        int[] daysOfWeek = {-1,-1,-1,-1,-1,-1,-1};
+        int arrayCounter = 0;
+
+        if(cursor != null) {
+            if(cursor.moveToFirst()) {
+                do{
+                    date = Date.valueOf(cursor.getString(cursor.getColumnIndex("date")));
+                    if(startDate.compareTo(date) < 0) {
+                        if(cursor.getFloat(cursor.getColumnIndex("progress")) >= cursor.getFloat(cursor.getColumnIndex("goal"))) {
+                            c.setTime(date);
+                            daysOfWeek[arrayCounter] = c.get(Calendar.DAY_OF_WEEK);
+                            arrayCounter++;
+                        }
+                    }
+
+                } while(cursor.moveToNext());
+            }
+        }
+
+        return daysOfWeek;
+
     }
 
 

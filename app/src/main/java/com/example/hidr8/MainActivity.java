@@ -18,6 +18,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -106,12 +107,6 @@ public class MainActivity extends AppCompatActivity{
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 
-        //this code can be used to change the color of a drawable for the update to the circles that represent
-        //the days of the week a separate drawable will need to be updated for each day of the week
-        Drawable unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.monday);
-        Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
-        DrawableCompat.setTint(wrappedDrawable, Color.RED);
-
         recommendedGoal = findViewById(R.id.recommended_goal);
         String weight = pref.getString("weight", "140");
         new GetWebServiceData().execute(weight);
@@ -176,9 +171,10 @@ public class MainActivity extends AppCompatActivity{
         weeklyReportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //codes to update the circles to the right colors based on the database goes here
+                //code to update the circles to the right colors based on the database goes here
                 DatabaseHelper db = new DatabaseHelper(MainActivity.this);
-
+                int[] completeDays = db.getCompleteDays();
+                setDayOfWeekColors(completeDays);
                 Intent intent = new Intent(MainActivity.this, WeeklyReport.class);
                 startActivity(intent);
             }
@@ -274,6 +270,50 @@ public class MainActivity extends AppCompatActivity{
         // Add as notification
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         manager.notify(0, builder.build());
+    }
+
+    private void setDayOfWeekColors(int[] days) {
+        for(int i = 0; i < days.length; i++) {
+            if(days[i] != -1) {
+                switch(days[i]) {
+                    case 1:
+                        Drawable unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.sunday);
+                        Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
+                        DrawableCompat.setTint(wrappedDrawable, Color.BLUE);
+                        break;
+                    case 2:
+                        unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.monday);
+                        wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
+                        DrawableCompat.setTint(wrappedDrawable, Color.BLUE);
+                        break;
+                    case 3:
+                        unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.tuesday);
+                        wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
+                        DrawableCompat.setTint(wrappedDrawable, Color.BLUE);
+                        break;
+                    case 4:
+                        unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.wednesday);
+                        wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
+                        DrawableCompat.setTint(wrappedDrawable, Color.BLUE);
+                        break;
+                    case 5:
+                        unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.thursday);
+                        wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
+                        DrawableCompat.setTint(wrappedDrawable, Color.BLUE);
+                        break;
+                    case 6:
+                        unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.friday);
+                        wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
+                        DrawableCompat.setTint(wrappedDrawable, Color.BLUE);
+                        break;
+                    case 7:
+                        unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.saturday);
+                        wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
+                        DrawableCompat.setTint(wrappedDrawable, Color.BLUE);
+                        break;
+                }
+            }
+        }
     }
 
 }
