@@ -118,8 +118,6 @@ public class MainActivity extends AppCompatActivity{
         addNotification();
 
 
-
-
         //array adapter created for the titles in the navigation drawer
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, navigationDrawerItemTitles);
         drawerList.setAdapter(adapter);
@@ -156,8 +154,6 @@ public class MainActivity extends AppCompatActivity{
         weeklyReportButton = findViewById(R.id.weeklyReport);
 
 
-
-
         //defines values based on the default shared preferences
         containerSize = pref.getFloat("container_size", 8);
         goal = Float.parseFloat(pref.getString("goal", "80"));
@@ -184,8 +180,6 @@ public class MainActivity extends AppCompatActivity{
         });
 
     }
-
-
 
     public void waterOnClick(View view) {
         //increments the waterProgressBar by the amount determined by the container size
@@ -253,12 +247,12 @@ public class MainActivity extends AppCompatActivity{
         @Override
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
+            System.out.println((String)o);
             recommendedGoal.setText("Recommended goal: " + (String)o + " fl oz");
         }
     }
 
     private void addNotification() {
-
         alarmMgr = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, Notify.class);
         alarmIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
