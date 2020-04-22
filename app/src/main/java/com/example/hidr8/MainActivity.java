@@ -84,6 +84,8 @@ public class MainActivity extends AppCompatActivity{
         pref = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor edit = pref.edit();
 
+        setDefaultDayOfWeekColors();
+
         Date date = new Date();
         if(pref.getString("date", "empty").equals("empty")) {
             edit.putString("date", date.toString());
@@ -321,6 +323,37 @@ public class MainActivity extends AppCompatActivity{
                 }
             }
         }
+    }
+
+    //resets the drawables to gray
+    private void setDefaultDayOfWeekColors() {
+        Drawable unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.sunday);
+        Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
+        DrawableCompat.setTint(wrappedDrawable, Color.GRAY);
+
+        unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.monday);
+        wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
+        DrawableCompat.setTint(wrappedDrawable, Color.GRAY);
+
+        unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.tuesday);
+        wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
+        DrawableCompat.setTint(wrappedDrawable, Color.GRAY);
+
+        unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.wednesday);
+        wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
+        DrawableCompat.setTint(wrappedDrawable, Color.GRAY);
+
+        unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.thursday);
+        wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
+        DrawableCompat.setTint(wrappedDrawable, Color.GRAY);
+
+        unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.friday);
+        wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
+        DrawableCompat.setTint(wrappedDrawable, Color.GRAY);
+
+        unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.saturday);
+        wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
+        DrawableCompat.setTint(wrappedDrawable, Color.GRAY);
     }
 
 }
