@@ -84,6 +84,8 @@ public class MainActivity extends AppCompatActivity{
         pref = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor edit = pref.edit();
 
+
+
         Date date = new Date();
         if(pref.getString("date", "empty").equals("empty")) {
             edit.putString("date", date.toString());
@@ -171,6 +173,8 @@ public class MainActivity extends AppCompatActivity{
                 //code to update the circles to the right colors based on the database goes here
                 DatabaseHelper db = new DatabaseHelper(MainActivity.this);
                 int[] completeDays = db.getCompleteDays();
+                //resets colors before the colors are updated from the database
+                setDefaultDayOfWeekColors();
                 setDayOfWeekColors(completeDays);
                 Intent intent = new Intent(MainActivity.this, WeeklyReport.class);
                 startActivity(intent);
@@ -321,6 +325,37 @@ public class MainActivity extends AppCompatActivity{
                 }
             }
         }
+    }
+
+    //resets the drawables to gray
+    private void setDefaultDayOfWeekColors() {
+        Drawable unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.sunday);
+        Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
+        DrawableCompat.setTint(wrappedDrawable, Color.GRAY);
+
+        unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.monday);
+        wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
+        DrawableCompat.setTint(wrappedDrawable, Color.GRAY);
+
+        unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.tuesday);
+        wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
+        DrawableCompat.setTint(wrappedDrawable, Color.GRAY);
+
+        unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.wednesday);
+        wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
+        DrawableCompat.setTint(wrappedDrawable, Color.GRAY);
+
+        unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.thursday);
+        wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
+        DrawableCompat.setTint(wrappedDrawable, Color.GRAY);
+
+        unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.friday);
+        wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
+        DrawableCompat.setTint(wrappedDrawable, Color.GRAY);
+
+        unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.saturday);
+        wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
+        DrawableCompat.setTint(wrappedDrawable, Color.GRAY);
     }
 
 }
