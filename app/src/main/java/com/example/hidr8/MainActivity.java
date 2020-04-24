@@ -84,7 +84,11 @@ public class MainActivity extends AppCompatActivity{
         pref = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor edit = pref.edit();
 
+<<<<<<< HEAD
 
+=======
+        setDefaultDayOfWeekColors();
+>>>>>>> 284bcb77186669d6a48d728158e1c810970d1c32
 
         Date date = new Date();
         if(pref.getString("date", "empty").equals("empty")) {
