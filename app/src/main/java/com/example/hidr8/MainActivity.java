@@ -84,11 +84,9 @@ public class MainActivity extends AppCompatActivity{
         pref = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor edit = pref.edit();
 
-<<<<<<< HEAD
 
-=======
-        setDefaultDayOfWeekColors();
->>>>>>> 284bcb77186669d6a48d728158e1c810970d1c32
+        ManageDrawables.setDefaultDayOfWeekColors(this, Color.GRAY);
+
 
         Date date = new Date();
         if(pref.getString("date", "empty").equals("empty")) {
@@ -178,8 +176,8 @@ public class MainActivity extends AppCompatActivity{
                 DatabaseHelper db = new DatabaseHelper(MainActivity.this);
                 int[] completeDays = db.getCompleteDays();
                 //resets colors before the colors are updated from the database
-                setDefaultDayOfWeekColors();
-                setDayOfWeekColors(completeDays);
+                ManageDrawables.setDefaultDayOfWeekColors(MainActivity.this, Color.GRAY);
+                ManageDrawables.setDayOfWeekColors(completeDays, MainActivity.this);
                 Intent intent = new Intent(MainActivity.this, WeeklyReport.class);
                 startActivity(intent);
             }
@@ -281,86 +279,7 @@ public class MainActivity extends AppCompatActivity{
         alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000*60*30, alarmIntent);
     }
 
-    //method that sets the day of the week circles based on which day of the week the water goal was met
-    private void setDayOfWeekColors(int[] days) {
-        //loop that iterates over the passed in days array and sets the color based on the value in
-        //the array at each position in the array
-        for(int i = 0; i < days.length; i++) {
-            //only check the cases if the days[i] does not contain the flag value of -1
-            if(days[i] != -1) {
-                //the value that is in days[i] determines which drawable is set to the color blue
-                switch(days[i]) {
-                    case 1:
-                        //gets the drawable and sets the color to blue
-                        Drawable unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.sunday);
-                        Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
-                        DrawableCompat.setTint(wrappedDrawable, Color.BLUE);
-                        break;
-                    case 2:
-                        unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.monday);
-                        wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
-                        DrawableCompat.setTint(wrappedDrawable, Color.BLUE);
-                        break;
-                    case 3:
-                        unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.tuesday);
-                        wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
-                        DrawableCompat.setTint(wrappedDrawable, Color.BLUE);
-                        break;
-                    case 4:
-                        unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.wednesday);
-                        wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
-                        DrawableCompat.setTint(wrappedDrawable, Color.BLUE);
-                        break;
-                    case 5:
-                        unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.thursday);
-                        wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
-                        DrawableCompat.setTint(wrappedDrawable, Color.BLUE);
-                        break;
-                    case 6:
-                        unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.friday);
-                        wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
-                        DrawableCompat.setTint(wrappedDrawable, Color.BLUE);
-                        break;
-                    case 7:
-                        unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.saturday);
-                        wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
-                        DrawableCompat.setTint(wrappedDrawable, Color.BLUE);
-                        break;
-                }
-            }
-        }
-    }
 
-    //resets the drawables to gray
-    private void setDefaultDayOfWeekColors() {
-        Drawable unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.sunday);
-        Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
-        DrawableCompat.setTint(wrappedDrawable, Color.GRAY);
-
-        unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.monday);
-        wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
-        DrawableCompat.setTint(wrappedDrawable, Color.GRAY);
-
-        unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.tuesday);
-        wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
-        DrawableCompat.setTint(wrappedDrawable, Color.GRAY);
-
-        unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.wednesday);
-        wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
-        DrawableCompat.setTint(wrappedDrawable, Color.GRAY);
-
-        unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.thursday);
-        wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
-        DrawableCompat.setTint(wrappedDrawable, Color.GRAY);
-
-        unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.friday);
-        wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
-        DrawableCompat.setTint(wrappedDrawable, Color.GRAY);
-
-        unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.saturday);
-        wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
-        DrawableCompat.setTint(wrappedDrawable, Color.GRAY);
-    }
 
 }
 
