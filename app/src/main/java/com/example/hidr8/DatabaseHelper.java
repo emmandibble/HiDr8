@@ -51,7 +51,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //used to populate the date list view on the weekly report screen
     public ArrayList<String> getDate() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT date FROM daily_input ORDER BY date DESC", null);
+        Cursor cursor = db.rawQuery("SELECT date FROM daily_input ORDER BY date DESC LIMIT 20", null);
         ArrayList<String> array = new ArrayList<>(7);
 
         if(cursor != null) {
@@ -69,7 +69,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //used to populate the time list view on the weekly report screen
     public ArrayList<String> getTime() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT time FROM daily_input ORDER BY date DESC", null);
+        Cursor cursor = db.rawQuery("SELECT time FROM daily_input ORDER BY date DESC LIMIT 20", null);
         ArrayList<String> array = new ArrayList<>(7);
 
         if(cursor != null) {
@@ -87,7 +87,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //used to populate the amount list view on the weekly report screen
     public ArrayList<String> getAmount() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT amount FROM daily_input ORDER BY date DESC", null);
+        Cursor cursor = db.rawQuery("SELECT amount FROM daily_input ORDER BY date DESC LIMIT 20", null);
         ArrayList<String> array = new ArrayList<>(7);
 
         if(cursor != null) {
@@ -120,11 +120,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //array counter that is incremented when a complete day is added to the array
         int arrayCounter = 0;
 
+
         //iterates over the database query and updates the daysOfWeek array
         if(cursor != null) {
             if(cursor.moveToFirst()) {
                 do{
                     date = Date.valueOf(cursor.getString(cursor.getColumnIndex("date")));
+
                     if(startDate.compareTo(date) < 0) {
                         if(cursor.getFloat(cursor.getColumnIndex("progress")) >= cursor.getFloat(cursor.getColumnIndex("goal"))) {
                             c.setTime(date);
