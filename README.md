@@ -1,11 +1,11 @@
 # HiDr8
-Android Application to remind the user to drink water during the day. Created in Android Studio.
+Android application to remind the user to drink water during the day.
 
 # Screenshots
 ### The main screen where the user can track water by pressing the water button
 ![MainScreen](https://github.com/emmandibble/HiDr8/blob/master/Screenshots/MainScreen.png?raw=true)
 
-### The navigation menu revealed after pressing the hamburger button the main screen
+### The navigation menu revealed after pressing the hamburger button on the main screen
 ![NavigationDrawer](https://github.com/emmandibble/HiDr8/blob/master/Screenshots/Hamburger%20Event.png?raw=true)
 
 ### The weekly report screen where the user can see progres towards their water goal
